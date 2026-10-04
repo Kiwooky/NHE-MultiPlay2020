@@ -1,0 +1,99 @@
+/* MultiPlay 20/20 - New Horizon Electronics (650 x 400) */
+.multiplay{{{cns}}} {
+    position: absolute;
+    width: 650px;
+    height: 400px;
+    background-image: url(/resources/background.jpg{{{ns}}});
+    background-size: 650px 400px;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+/* knobs: Taj Mahal strip, 62x62 frames, 65 frames */
+.multiplay{{{cns}}} .mp-knob {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    background-image: url(/resources/knob.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+.multiplay{{{cns}}} .mp-speed      { left: 119px; top: 53px; }
+.multiplay{{{cns}}} .mp-width      { left: 205px; top: 53px; }
+.multiplay{{{cns}}} .mp-delay_time { left: 291px; top: 53px; }
+.multiplay{{{cns}}} .mp-regen      { left: 457px; top: 53px; }
+.multiplay{{{cns}}} .mp-mix        { left: 543px; top: 53px; }
+.multiplay{{{cns}}} .mp-slam_level { left: 457px; top: 162px; }
+
+/* range switch: 100x138 frames [flange | chorus | echo], legend swaps with Time Mod */
+.multiplay{{{cns}}} .mp-range {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 100px;
+    height: 138px;
+    background-image: url(/resources/range-original.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+.multiplay{{{cns}}} .mp-range.mp-doubled {
+    background-image: url(/resources/range-doubled.png{{{ns}}});
+}
+
+/* click zones over the lever: each legend line selects its range (script-multiplay.js) */
+.multiplay{{{cns}}} .mp-range-hit {
+    position: absolute;
+    left: 14px;
+    width: 100px;
+    cursor: pointer;
+    z-index: 22;
+}
+.multiplay{{{cns}}} .mp-hit-echo   { top: 14px;  height: 45px; }
+.multiplay{{{cns}}} .mp-hit-chorus { top: 59px;  height: 48px; }
+.multiplay{{{cns}}} .mp-hit-flange { top: 107px; height: 45px; }
+
+/* Time Mod: 100x62 frames [LED off | LED on] */
+.multiplay{{{cns}}} .mp-timemod {
+    position: absolute;
+    left: 259px;
+    top: 162px;
+    width: 100px;
+    height: 62px;
+    background-image: url(/resources/timemod.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+
+/* footswitches: 168x139 frames [LED off | LED on] */
+.multiplay{{{cns}}} .mp-fs {
+    position: absolute;
+    top: 248px;
+    width: 168px;
+    height: 139px;
+    background-image: url(/resources/footswitch.png{{{ns}}});
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    z-index: 21;
+}
+.multiplay{{{cns}}} .mp-hold   { left: 15px; }
+/* Repeat Hold, Slam and Time Mod use the "switch" widget: a click always
+   toggles, even if the mouse moves a little (the film widget treats that as
+   a drag and ignores the click). Class "on" = value 1 -> LED lit. */
+.multiplay{{{cns}}} .mp-hold.off, .multiplay{{{cns}}} .mp-slam.off { background-position: 0 0; }
+.multiplay{{{cns}}} .mp-hold.on,  .multiplay{{{cns}}} .mp-slam.on  { background-position: -168px 0; }
+.multiplay{{{cns}}} .mp-timemod.off { background-position: 0 0; }
+.multiplay{{{cns}}} .mp-timemod.on  { background-position: -100px 0; }
+.multiplay{{{cns}}} .mp-effect { left: 192px; }
+.multiplay{{{cns}}} .mp-slam   { left: 472px; }
+/* bypass widget: class "on" = bypassed -> LED off; "off" = active -> LED lit */
+.multiplay{{{cns}}} .mp-effect.on  { background-position: 0 0; }
+.multiplay{{{cns}}} .mp-effect.off { background-position: -168px 0; }
+
+.multiplay{{{cns}}} .mod-pedal-input,
+.multiplay{{{cns}}} .mod-pedal-output { top: 150px; }

@@ -1,0 +1,26 @@
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-multiplay.html> ;
+        modgui:stylesheet <modgui/stylesheet-multiplay.css> ;
+        modgui:javascript <modgui/script-multiplay.js> ;
+        modgui:screenshot <modgui/screenshot-multiplay.png> ;
+        modgui:thumbnail <modgui/thumbnail-multiplay.png> ;
+        modgui:brand "New Horizon" ;
+        modgui:label "MultiPlay" ;
+        modgui:port
+        [ lv2:index 0 ; lv2:symbol "delay_time" ; lv2:name "Delay Time" ; ] ,
+        [ lv2:index 1 ; lv2:symbol "width" ; lv2:name "Width" ; ] ,
+        [ lv2:index 2 ; lv2:symbol "speed" ; lv2:name "Speed" ; ] ,
+        [ lv2:index 3 ; lv2:symbol "regen" ; lv2:name "Regen" ; ] ,
+        [ lv2:index 4 ; lv2:symbol "mix" ; lv2:name "Mix" ; ] ,
+        [ lv2:index 5 ; lv2:symbol "range" ; lv2:name "Range" ; ] ,
+        [ lv2:index 6 ; lv2:symbol "slam_level" ; lv2:name "Slam Regen" ; ] ,
+        [ lv2:index 7 ; lv2:symbol "time_mod" ; lv2:name "Time Mod" ; ] ,
+        [ lv2:index 8 ; lv2:symbol "hold" ; lv2:name "Repeat Hold" ; ] ,
+        [ lv2:index 9 ; lv2:symbol "slam" ; lv2:name "Slam" ; ] ,
+        [ lv2:index 10 ; lv2:symbol "ramp_time" ; lv2:name "Ramp Swell Time" ; ] ;
+    ] .

@@ -1,0 +1,31 @@
+<div class="mod-pedal multiplay{{{cns}}}">
+    <div mod-role="drag-handle" class="mod-drag-handle"></div>
+    <div class="mp-range" title="Range" mod-role="input-control-port" mod-port-symbol="range"></div>
+    <div class="mp-range-hit mp-hit-echo" title="Echo" data-value="2"></div>
+    <div class="mp-range-hit mp-hit-chorus" title="Chorus / Double" data-value="1"></div>
+    <div class="mp-range-hit mp-hit-flange" title="Flange" data-value="0"></div>
+    <div class="mp-knob mp-speed" title="Speed" mod-role="input-control-port" mod-port-symbol="speed"></div>
+    <div class="mp-knob mp-width" title="Width" mod-role="input-control-port" mod-port-symbol="width"></div>
+    <div class="mp-knob mp-delay_time" title="Delay Time" mod-role="input-control-port" mod-port-symbol="delay_time"></div>
+    <div class="mp-knob mp-regen" title="Regen" mod-role="input-control-port" mod-port-symbol="regen"></div>
+    <div class="mp-knob mp-mix" title="Mix" mod-role="input-control-port" mod-port-symbol="mix"></div>
+    <div class="mp-knob mp-slam_level" title="Slam Regen" mod-role="input-control-port" mod-port-symbol="slam_level"></div>
+    <div class="mp-timemod" title="Time Mod" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="time_mod"></div>
+    <div class="mp-fs mp-hold" title="Repeat Hold" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="hold"></div>
+    <div class="mp-fs mp-effect" title="Effect" mod-role="bypass"></div>
+    <div class="mp-fs mp-slam" title="Slam" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="slam"></div>
+    <div class="mod-pedal-input">
+        {{#effect.ports.audio.input}}
+        <div class="mod-input mod-input-disconnected" title="{{name}}" mod-role="input-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-input-image"></div>
+        </div>
+        {{/effect.ports.audio.input}}
+    </div>
+    <div class="mod-pedal-output">
+        {{#effect.ports.audio.output}}
+        <div class="mod-output mod-output-disconnected" title="{{name}}" mod-role="output-audio-port" mod-port-symbol="{{symbol}}">
+            <div class="mod-pedal-output-image"></div>
+        </div>
+        {{/effect.ports.audio.output}}
+    </div>
+</div>
