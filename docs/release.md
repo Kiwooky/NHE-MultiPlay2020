@@ -14,7 +14,7 @@ As of October 2026, MOD publishes community plugins in three steps.
 | mod-plugin-builder package | Written and test-built locally; first builder.mod.audio build pending |
 | Pedal face | Done |
 | Manual PDF + `modgui:documentation` line | To do |
-| Presets (flanger, slapback, ambient hold, slam) | To do |
+| Factory presets | Done in 1.0.1 (ten, by Niels) |
 | Tested on Duo | Prototype builds only; 1.0.0 to check |
 | Tested on Duo X and Dwarf | To do (forum volunteers) |
 | Assignments: footswitches, knobs, MIDI | To check on hardware |

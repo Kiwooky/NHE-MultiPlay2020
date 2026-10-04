@@ -1,0 +1,337 @@
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix pset:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Factory presets by Niels (New Horizon Electronics), made on the Duo with the
+# cookbook prototype. Footswitch states (Repeat Hold, Slam, Effect) are left
+# out on purpose, so loading a preset never freezes or slams the delay.
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Choro_trem>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Choro-trem" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 10.0
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 8.549107
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Flangy_flangeface>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Flangy flangeface" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 4.0625
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 9.977679
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 1.640625
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 4.84375
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 3.59375
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Haunting_detunes>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Haunting detunes" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 0.301339
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 2
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Inception>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Inception" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 5.77567
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 1.049107
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Muted_palm_tapestops>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Muted palm tapestops" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 9.938616
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 4.99442
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 2
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Short_clean_loops>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Short clean loops" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 5.15625
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 2
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Slamming_bliss>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Slamming bliss" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 4.0625
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 3.0
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 4.0
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 3.59375
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 2
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Triller_shimmer>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Triller shimmer" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 9.6875
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 0.580357
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 9.313616
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Uneasy_slapback>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Uneasy slapback" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 1.367188
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 0.0
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 3.125
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 1
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#preset-Warbled_echo>
+    a pset:Preset ;
+    lv2:appliesTo <https://github.com/Kiwooky/NHE-MultiPlay2020> ;
+    rdfs:label "Warbled echo" ;
+    lv2:port [
+        lv2:symbol "delay_time" ;
+        pset:value 6.551339
+    ] , [
+        lv2:symbol "width" ;
+        pset:value 0.46875
+    ] , [
+        lv2:symbol "speed" ;
+        pset:value 8.4375
+    ] , [
+        lv2:symbol "regen" ;
+        pset:value 5.15625
+    ] , [
+        lv2:symbol "mix" ;
+        pset:value 7.03125
+    ] , [
+        lv2:symbol "range" ;
+        pset:value 2
+    ] , [
+        lv2:symbol "slam_level" ;
+        pset:value 5.133929
+    ] , [
+        lv2:symbol "time_mod" ;
+        pset:value 0
+    ] , [
+        lv2:symbol "ramp_time" ;
+        pset:value 0.45
+    ] .

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-10-04
+
+- Ten factory presets by Niels: Choro-trem, Flangy flangeface, Haunting detunes, Inception,
+  Muted palm tapestops, Short clean loops, Slamming bliss, Triller shimmer, Uneasy slapback,
+  Warbled echo. Footswitch states are not stored, so loading a preset never freezes or slams.
+
 ## 1.0.0 — 2026-10-04
 
 First release under its own identity (URI `https://github.com/Kiwooky/NHE-MultiPlay2020`,

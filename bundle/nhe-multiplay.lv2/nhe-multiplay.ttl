@@ -17,7 +17,7 @@
     ] ;
     rdfs:comment "Variable-clock 8-bit delay, flanger and looper modelled on a 1988 multi-function digital delay. Delay Time changes the clock, so sweeps bend pitch and a held loop varispeeds. Slam switches the feedback to the Slam Regen knob for instant self-oscillation; Time Mod doubles every range." ;
     lv2:minorVersion 2 ;
-    lv2:microVersion 0 ;
+    lv2:microVersion 1 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     lv2:requiredFeature <http://lv2plug.in/ns/ext/options#options> ,
                         <http://lv2plug.in/ns/ext/urid#map> ;
