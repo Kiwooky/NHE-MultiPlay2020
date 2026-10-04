@@ -31,7 +31,7 @@
 | --- | --- |
 | Repeat Hold | mid range delay times (single/double notes quickly form a texture/pattern to play against. Bypass to leave it out of the mix, then engage to bring back the loop. |
 | Time Mod | Bind it to a momentary switch, record with time mod off and when you switch time mod on it will drop the sample to half speed and an octave down. |
-| Slam | Use the Slamming Bliss preset to start. Play a gently chord and immediately press slam to swell and sustain the chord. Let go, Play another chord and repeat. |
+| Slam | Use the Slamming Bliss preset to start. Play a gentle chord and after the initial attack, press slam to swell and sustain the chord. Let go, Play another chord and repeat. |
 | Delay time, Speed, Width, Time mod | With Time mod on, set delay time to minimum. Play something and select Repeat Hold. Now manipulate the sample in half time, double time and pitch bombs by using the knobs. |
 
 ## Who used it
