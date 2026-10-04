@@ -25,6 +25,15 @@
 | Bypass | The delay keeps running underneath; a held loop is still there when you switch back on |
 | Internal trims | Regen ceiling, compander bias, clock floor (owners stretch the long range to 4 s or more) |
 
+## Ways to play it
+
+| Control | How it can be used |
+| --- | --- |
+| Repeat Hold | mid range delay times (single/double notes quickly form a texture/pattern to play against. Bypass to leave it out of the mix, then engage to bring back the loop. |
+| Time Mod | Bind it to a momentary switch, record with time mod off and when you switch time mod on it will drop the sample to half speed and an octave down. |
+| Slam | Use the Slamming Bliss preset to start. Play a gently chord and immediately press slam to swell and sustain the chord. Let go, Play another chord and repeat. |
+| Delay time, Speed, Width, Time mod | With Time mod on, set delay time to minimum. Play something and select Repeat Hold. Now manipulate the sample in half time, double time and pitch bombs by using the knobs. |
+
 ## Who used it
 
 A cult pedal, mostly in noise-rock and experimental rigs: Jonathan Hischke (Hella, Dot Hacker) called it his favourite pedal "because it makes me think differently"; Juan Alderete (Racer X, The Mars Volta); Nathan Latona and Nick Reinhart (Tera Melos); Masahiko Ohno (Solmania). Sources: [Pedals and Effects](https://pedalsandeffects.com/blog/2016/2/28/the-pedals-and-effects-5-with-jonathan-hischke-of-dot-hacker), [Equipboard](https://equipboard.com/items/digitech-pds-20-20-multi-play).
