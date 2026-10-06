@@ -16,7 +16,9 @@ Most delays move a tap. The 20/20 changes the speed of the clock that walks a fi
 
 ## Demo
 Completely dry (just the plug-in): https://drive.google.com/file/d/1tmwQZ1uhLbevMRAzet1CMWGMjuKDO2nR/view?usp=sharing
+
 The "slam" function to create sustained swells without reverb: https://drive.google.com/file/d/1Lvj3ZzcmT6VHtPw49nYsiMmhGbbbp_oi/view?usp=sharing
+
 Added reverb for sustained choral swells: https://drive.google.com/file/d/1UT3a2G7PX4Z71WNuWXIsXd4HbB-0PjJs/view?usp=sharing
 
 ## Controls
