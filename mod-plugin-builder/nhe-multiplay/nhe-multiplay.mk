@@ -14,7 +14,12 @@
 ######################################
 
 NHE_MULTIPLAY_VERSION = COMMIT_HASH_HERE
-NHE_MULTIPLAY_SITE = $(call github,Kiwooky,NHE-MultiPlay2020,$(NHE_MULTIPLAY_VERSION))
+NHE_MULTIPLAY_SITE = https://github.com/Kiwooky/NHE-MultiPlay2020.git
+NHE_MULTIPLAY_SITE_METHOD = git
+NHE_MULTIPLAY_GIT_SUBMODULES = y
+# fetch git submodules (DPF), as MOD's own packages do (mod-plugin-builder)
+NHE_MULTIPLAY_PRE_DOWNLOAD_HOOKS += MOD_PLUGIN_BUILDER_DOWNLOAD_WITH_SUBMODULES
+
 NHE_MULTIPLAY_BUNDLES = nhe-multiplay.lv2
 
 NHE_MULTIPLAY_TARGET_MAKE = $(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) NOOPT=true -C $(@D)
