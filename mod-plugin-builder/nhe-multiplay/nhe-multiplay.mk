@@ -13,7 +13,7 @@
 #
 ######################################
 
-NHE_MULTIPLAY_VERSION = COMMIT_HASH_HERE
+NHE_MULTIPLAY_VERSION = 0e2d0e4b1cedf077895b6d4bafb95faf5157589f
 NHE_MULTIPLAY_SITE = https://github.com/Kiwooky/NHE-MultiPlay2020.git
 NHE_MULTIPLAY_SITE_METHOD = git
 NHE_MULTIPLAY_GIT_SUBMODULES = y
