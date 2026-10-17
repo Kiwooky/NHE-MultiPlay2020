@@ -11,10 +11,10 @@
 #define DISTRHO_PLUGIN_NUM_OUTPUTS  2
 
 enum PortGroups {
-    kGroupDelay = 0,
+    kGroupDelay = 0,      // in the order mod-ui lists them (lv2:index on each group in the TTL)
     kGroupModulation,
-    kGroupMix,
-    kGroupExpression
+    kGroupExpression,
+    kGroupMix
 };
 
 enum Parameters {

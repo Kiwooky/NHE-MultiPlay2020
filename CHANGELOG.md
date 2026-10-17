@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 — 2026-10-17
+
+- Settings groups now listed in the order Delay, Modulation, Expression, Mix (each group has an
+  lv2:index; without one, MOD lists them alphabetically).
+
 ## 1.0.2 — 2026-10-17
 
 - New pedal face at 2x resolution (sharp on retina screens and tablets). The footswitches press

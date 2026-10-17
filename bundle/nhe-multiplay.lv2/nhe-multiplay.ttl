@@ -18,7 +18,7 @@
     ] ;
     rdfs:comment "Variable-clock 8-bit delay, flanger and looper modelled on a 1988 multi-function digital delay. Delay Time changes the clock, so sweeps bend pitch and a held loop varispeeds. Slam switches the feedback to the Slam Regen knob for instant self-oscillation; Time Mod doubles every range." ;
     lv2:minorVersion 2 ;
-    lv2:microVersion 2 ;
+    lv2:microVersion 3 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     lv2:requiredFeature <http://lv2plug.in/ns/ext/options#options> ,
                         <http://lv2plug.in/ns/ext/urid#map> ;
@@ -171,22 +171,28 @@
         pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
     ] .
 
+# Settings groups. mod-ui lists them by lv2:index (then by name), so the
+# index sets the order: Delay, Modulation, Expression, Mix.
 <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     a pg:InputGroup ;
+    lv2:index 0 ;
     lv2:name "Delay" ;
     lv2:symbol "delay" .
 
 <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_modulation>
     a pg:InputGroup ;
+    lv2:index 1 ;
     lv2:name "Modulation" ;
     lv2:symbol "modulation" .
 
-<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
-    a pg:InputGroup ;
-    lv2:name "Mix" ;
-    lv2:symbol "mix" .
-
 <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_expression>
     a pg:InputGroup ;
+    lv2:index 2 ;
     lv2:name "Expression" ;
     lv2:symbol "expression" .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
+    a pg:InputGroup ;
+    lv2:index 3 ;
+    lv2:name "Mix" ;
+    lv2:symbol "mix" .

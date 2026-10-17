@@ -18,6 +18,11 @@ for fn in os.listdir(B):
     if fn.endswith('.ttl') and fn != 'presets.ttl':
         g.parse(os.path.join(B, fn), format='turtle')
 groups = {str(s): str(g.value(s, L['name'])) for s in g.subjects(rdflib.RDF.type, PG['InputGroup'])}
+# mod-ui lists groups by their lv2:index, then by name
+def _gi(s):
+    v = g.value(s, L['index']); return int(v) if v is not None else 0
+group_order = [str(g.value(s, L['name'])) for s in sorted(g.subjects(rdflib.RDF.type, PG['InputGroup']),
+               key=lambda s: (_gi(s), str(g.value(s, L['name'])), str(g.value(s, L['symbol']))))]
 ports = []
 for p in g.objects(None, L['port']):
     if (p, rdflib.RDF.type, L['ControlPort']) not in g or (p, rdflib.RDF.type, L['InputPort']) not in g:
@@ -49,6 +54,6 @@ page = (tpl.replace('/*FACE_CSS*/', css).replace('<!--FACE_HTML-->', html)
            .replace('/*MODGUI_JS*/', modgui)
            .replace('/*PORTS_JSON*/null', json.dumps(ports))
            .replace('/*FACE_SCRIPT*/null', json.dumps(script))
-           .replace('/*GROUP_ORDER*/null', json.dumps(['Delay', 'Modulation', 'Mix', 'Expression'])))
+           .replace('/*GROUP_ORDER*/null', json.dumps(group_order)))
 open(OUT, 'w').write(page)
-print(len(page), 'bytes;', len(ports), 'ports;', sorted(set(p['group'] for p in ports)))
+print(len(page), 'bytes;', len(ports), 'ports; groups in order:', group_order)

@@ -32,11 +32,11 @@ Added reverb for sustained choral swells: https://drive.google.com/file/d/1UT3a2
 | Delay | Repeat Hold | Freezes the loop (latching) |
 | Modulation | Speed | LFO rate, about 0.07–18 Hz; faster also means shallower, as on the original |
 | Modulation | Width | Crossfades from the Delay Time knob to the LFO sweep |
-| Mix | Mix | Dry/wet on both outputs; both full around noon |
-| Mix | Output 2 (settings) | Inverted (original) · Normal (mono-safe) · Offset (wide, mono-safe) |
 | Expression | Slam | Swaps Regen for Slam Regen while held (momentary by default) |
 | Expression | Slam Regen | Feedback level while Slam is held; past 5 it runs away |
 | Expression | Ramp Swell Time (settings) | How long Slam takes to swell in, 0.3–3 s; it falls back in twice that |
+| Mix | Mix | Dry/wet on both outputs; both full around noon |
+| Mix | Output 2 (settings) | Inverted (original) · Normal (mono-safe) · Offset (wide, mono-safe) |
 | | Effect | Bypass: echoes muted, delay keeps running, dry at unity |
 
 The footswitches press down while you hold them, and the LED beside each one shows whether it's on. The Time Mod button latches: it stays down, with its LED lit, while Time Mod is on. The plugin's settings list the controls in these four groups.
