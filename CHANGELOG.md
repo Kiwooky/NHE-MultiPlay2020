@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.2 — 2026-10-17
+
+- New pedal face at 2x resolution (sharp on retina screens and tablets). The footswitches press
+  down while held and spring back; the LED beside each one shows its state. When a hardware footswitch
+  or MIDI changes them, they flash down briefly. The Time Mod button latches: it stays down while
+  Time Mod is on.
+- New setting **Output 2**: Inverted (original, cancels in mono), Normal (mono-safe, no width),
+  Offset (echoes trail by 12 ms: wide and mono-safe). For stereo rigs that get summed to mono at venues.
+  Measured with both outputs summed: Inverted leaves no echo, Normal is exactly twice Output 1,
+  Offset keeps the echoes (+2.8 dB over Output 1 on a test note); switching modes doesn't click.
+- Controls grouped in the settings as Delay, Modulation, Mix and Expression (LV2 port groups).
+- The new setting is added after the existing ports, so saved pedalboards and presets keep working;
+  they load with Output 2 on Inverted, as before.
+
 ## 1.0.1 — 2026-10-04
 
 - Ten factory presets by Niels: Choro-trem, Flangy flangeface, Haunting detunes, Inception,

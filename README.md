@@ -23,22 +23,35 @@ Added reverb for sustained choral swells: https://drive.google.com/file/d/1UT3a2
 
 ## Controls
 
-| Control | What it does |
-| --- | --- |
-| Range lever | 2 s echo · 250 ms chorus/double · 16 ms flange (click a legend line to select it) |
-| Speed | LFO rate, about 0.07–18 Hz; faster also means shallower, as on the original |
-| Width | Crossfades from the Delay Time knob to the LFO sweep |
-| Delay Time | Sets the clock, 13:1 across the knob |
-| Regen | Feedback, up to the edge of oscillation |
-| Mix | Dry/wet on both outputs; both full around noon |
-| Slam Regen | Feedback level while Slam is held; past 5 it runs away |
-| Time Mod | Doubles every range: 4 s · 500 ms · 32 ms |
-| Repeat Hold | Freezes the loop (latching) |
-| Effect | Bypass: echoes muted, delay keeps running, dry at unity |
-| Slam | Swaps Regen for Slam Regen while held (momentary by default) |
-| Ramp Swell Time (settings) | How long Slam takes to swell in, 0.3–3 s; it falls back in twice that |
+| Group | Control | What it does |
+| --- | --- | --- |
+| Delay | Range lever | 2 s echo · 250 ms chorus/double · 16 ms flange (click a legend line to select it) |
+| Delay | Delay Time | Sets the clock, 13:1 across the knob |
+| Delay | Time Mod | Doubles every range: 4 s · 500 ms · 32 ms |
+| Delay | Regen | Feedback, up to the edge of oscillation |
+| Delay | Repeat Hold | Freezes the loop (latching) |
+| Modulation | Speed | LFO rate, about 0.07–18 Hz; faster also means shallower, as on the original |
+| Modulation | Width | Crossfades from the Delay Time knob to the LFO sweep |
+| Mix | Mix | Dry/wet on both outputs; both full around noon |
+| Mix | Output 2 (settings) | Inverted (original) · Normal (mono-safe) · Offset (wide, mono-safe) |
+| Expression | Slam | Swaps Regen for Slam Regen while held (momentary by default) |
+| Expression | Slam Regen | Feedback level while Slam is held; past 5 it runs away |
+| Expression | Ramp Swell Time (settings) | How long Slam takes to swell in, 0.3–3 s; it falls back in twice that |
+| | Effect | Bypass: echoes muted, delay keeps running, dry at unity |
 
-Mono in, two outputs. Output 2 carries the echoes in opposite polarity: wide in stereo, but don't sum the two outputs to mono.
+The footswitches press down while you hold them, and the LED beside each one shows whether it's on. The Time Mod button latches: it stays down, with its LED lit, while Time Mod is on. The plugin's settings list the controls in these four groups.
+
+### Outputs and mono
+
+Mono in, two outputs. The dry signal is the same on both. What Output 2 does with the echoes is a setting:
+
+| Output 2 | Stereo | Both outputs summed to mono |
+| --- | --- | --- |
+| **Inverted** (default, as the original) | Wide: the echoes are in opposite polarity | The echoes cancel completely |
+| **Normal** | Same as Output 1 (no width) | Everything intact, 6 dB louder |
+| **Offset** | Wide: Output 2's echoes trail by 12 ms | Echoes intact, with a slight doubling/comb colour |
+
+Playing venues that may sum your stereo rig to mono? Use Normal, or Offset if you want to keep some width.
 
 ## Install
 
@@ -65,7 +78,7 @@ Testing, the pedal-face workflow and the release checklist are in [docs/developm
 | `bundle/nhe-multiplay.lv2/` | LV2 metadata, pedal face (template, CSS, script, images) |
 | `assets/source/` | Source artwork and mockup for the face |
 | `mod-plugin-builder/` | Package file for MOD's builder and plugin store |
-| `tools/` | Offline LV2 test host, audio test suite, face renderer |
+| `tools/` | Offline LV2 test host, audio test suite, face renderer, interactive face preview (`tools/preview/`) |
 | `docs/` | Circuit notes, sound and quirks, development process, release checklist |
 | `dpf/` | DISTRHO Plugin Framework, git submodule (ISC) |
 

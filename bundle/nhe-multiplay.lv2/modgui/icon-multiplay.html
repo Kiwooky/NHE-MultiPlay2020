@@ -10,10 +10,14 @@
     <div class="mp-knob mp-regen" title="Regen" mod-role="input-control-port" mod-port-symbol="regen"></div>
     <div class="mp-knob mp-mix" title="Mix" mod-role="input-control-port" mod-port-symbol="mix"></div>
     <div class="mp-knob mp-slam_level" title="Slam Regen" mod-role="input-control-port" mod-port-symbol="slam_level"></div>
-    <div class="mp-timemod" title="Time Mod" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="time_mod"></div>
-    <div class="mp-fs mp-hold" title="Repeat Hold" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="hold"></div>
-    <div class="mp-fs mp-effect" title="Effect" mod-role="bypass"></div>
-    <div class="mp-fs mp-slam" title="Slam" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="slam"></div>
+    <div class="mp-tm" title="Time Mod" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="time_mod"></div>
+    <div class="mp-led mp-led-tm" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="time_mod"></div>
+    <div class="mp-fs mp-fs-hold" title="Repeat Hold" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="hold"></div>
+    <div class="mp-led mp-led-hold" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="hold"></div>
+    <div class="mp-fs mp-fs-effect" title="Effect" mod-role="bypass"></div>
+    <div class="mp-led mp-led-effect" mod-role="bypass-light"></div>
+    <div class="mp-fs mp-fs-slam" title="Slam" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="slam"></div>
+    <div class="mp-led mp-led-slam" mod-widget="switch" mod-role="input-control-port" mod-port-symbol="slam"></div>
     <div class="mod-pedal-input">
         {{#effect.ports.audio.input}}
         <div class="mod-input mod-input-disconnected" title="{{name}}" mod-role="input-audio-port" mod-port-symbol="{{symbol}}">

@@ -12,10 +12,11 @@ As of October 2026, MOD publishes community plugins in three steps.
 | Artwork licence | Placeholder; Niels to confirm |
 | Own identity (URI, maker, bundle name) | Done in 1.0.0 |
 | mod-plugin-builder package | Written and test-built locally; first builder.mod.audio build pending |
-| Pedal face | Done |
+| Pedal face | Done; 2x artwork in 1.0.2 |
 | Manual PDF + `modgui:documentation` line | To do |
 | Factory presets | Done in 1.0.1 (ten, by Niels) |
-| Tested on Duo | Prototype builds only; 1.0.0 to check |
+| Port groups (Delay, Modulation, Mix) | Done in 1.0.2 |
+| Tested on Duo | Prototype builds only; 1.0.2 to check |
 | Tested on Duo X and Dwarf | To do (forum volunteers) |
 | Assignments: footswitches, knobs, MIDI | To check on hardware |
 | Demo audio/video | To do |

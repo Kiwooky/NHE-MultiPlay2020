@@ -10,7 +10,7 @@
 - **Darker, dirtier repeats.** Every pass goes back through the filters, the compander and the converters.
 - **Long delays get grimier.** At 2 s the clock is about 33 kHz while the filters stay near 19 kHz, so a little aliasing leaks through.
 - **Flange and chorus with an edge.** A sharp, jet-like flanger on 16 ms; a wobbly chorus/double on 250 ms.
-- **Wide stereo.** Output 2's echoes are inverted: wide in stereo, cancelled in mono.
+- **Wide stereo.** Output 2's echoes are inverted, as on the original: wide in stereo, cancelled in mono. The Output 2 setting (1.0.2) adds Normal (mono-safe) and Offset (wide, mono-safe: echoes 12 ms later) for rigs that sum to mono.
 
 ## Quirks of the original controls
 

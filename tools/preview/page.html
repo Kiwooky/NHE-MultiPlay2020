@@ -1,0 +1,305 @@
+<title>MultiPlay Face Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Archivo+Narrow:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a bench — the pedal face on the left at its real 650x400 size, the plugin's settings panel beside it, stacking on narrow screens. Single dark look, like the MOD web UI. */
+:root {
+  --bg: #17161a;
+  --panel: #211f24;
+  --raised: #2b2830;
+  --line: #3a3640;
+  --fg: #ece7e2;
+  --muted: #a39c96;
+  --accent: #e0483c;
+  --accent-soft: rgba(224, 72, 60, 0.16);
+  --ok: #7cc48a;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --label: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font-family: var(--display);
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 32px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 18px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+h1 { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
+h1 span { color: var(--muted); font-weight: 400; }
+.sub { color: var(--muted); margin: 2px 0 0; max-width: 70ch; }
+.zoom { display: flex; gap: 4px; }
+button, select { font: inherit; color: var(--fg); }
+.zoom button, .ext button {
+  background: var(--raised); border: 1px solid var(--line); border-radius: 6px;
+  padding: 5px 11px; cursor: pointer; font-family: var(--label); font-weight: 600; letter-spacing: 0.03em;
+}
+.zoom button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start; }
+@media (max-width: 960px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+.stage {
+  background: radial-gradient(ellipse at 50% 40%, #2a272e 0%, #1b1a1e 70%);
+  border: 1px solid var(--line); border-radius: 10px; padding: 22px; overflow-x: auto; min-width: 0;
+}
+.facebox { position: relative; margin: 0 auto; }
+.facebox > .mod-pedal { position: absolute; left: 0; top: 0; transform-origin: 0 0; box-shadow: 0 14px 40px rgba(0,0,0,.55); }
+.stage-foot { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; margin-top: 14px; color: var(--muted); font-size: 12.5px; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 16px; display: grid; gap: 14px; min-width: 0; }
+.panel h2 { font-family: var(--label); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 0; font-weight: 600; }
+#groups { display: grid; gap: 16px; }
+.group { display: grid; gap: 6px; }
+.group h3 { margin: 0; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.group h3 small { font-weight: 400; color: var(--muted); font-family: var(--mono); font-size: 11px; }
+.row { display: grid; grid-template-columns: 112px minmax(0, 1fr) 64px; gap: 8px; align-items: center; min-height: 26px; }
+.row label { font-family: var(--label); font-weight: 500; font-size: 13.5px; }
+.row .val { font-family: var(--mono); font-size: 12px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.row input[type=range] { width: 100%; accent-color: var(--accent); }
+.row select { background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 3px 6px; width: 100%; grid-column: 2 / 4; }
+.row .tog { grid-column: 2 / 4; justify-self: start; display: inline-flex; gap: 6px; align-items: center; cursor: pointer;
+  background: var(--raised); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px 2px 4px; font-family: var(--label); font-size: 12.5px; }
+.tog .dot { width: 14px; height: 14px; border-radius: 50%; background: #4a454f; transition: background .12s; }
+.tog[aria-pressed="true"] .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.row.flash { animation: flash .6s ease-out; }
+@keyframes flash { from { background: var(--accent-soft); } to { background: transparent; } }
+
+.ext { display: grid; gap: 8px; }
+.ext .btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.ext p, .note { margin: 0; color: var(--muted); font-size: 12.5px; }
+.log { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin: 0; padding: 8px 10px; background: var(--bg);
+  border-radius: 6px; min-height: 7.5em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.log b { color: var(--fg); font-weight: 500; }
+.err { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .row.flash { animation: none; } }
+
+/* ---- the plugin's own stylesheet, unchanged ---- */
+/*FACE_CSS*/
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>MultiPlay 20/20 <span>face preview · 1.0.2</span></h1>
+      <p class="sub">Your pedal face running on MOD's own widget code. Turn the knobs, click the lever and press the footswitches. Hold a footswitch to see its down graphic; the LED changes when you let go.</p>
+    </div>
+    <div class="zoom" role="group" aria-label="Zoom">
+      <button type="button" id="z-fit" data-z="fit" aria-pressed="true">Fit</button>
+      <button type="button" id="z-1" data-z="1" aria-pressed="false">1×</button>
+      <button type="button" id="z-2" data-z="2" aria-pressed="false">2×</button>
+    </div>
+  </header>
+
+  <div class="bench">
+    <div>
+      <div class="stage" id="stage">
+        <div class="facebox" id="facebox"><!--FACE_HTML--></div>
+      </div>
+      <div class="stage-foot">
+        <span>Knobs: drag up and down, or use the scroll wheel, as in MOD.</span>
+        <span>2× shows the artwork at full resolution.</span>
+      </div>
+    </div>
+
+    <aside class="panel" aria-label="Plugin settings">
+      <h2>Settings, as grouped in the plugin</h2>
+      <div id="groups"></div>
+      <div class="ext">
+        <h2>From a footswitch or MIDI</h2>
+        <p>Changes that come from outside the face. The face should flash the button down for a moment.</p>
+        <div class="btns">
+          <button type="button" id="x-hold">Repeat Hold</button>
+          <button type="button" id="x-fx">Effect</button>
+          <button type="button" id="x-tm">Time Mod</button>
+          <button type="button" id="x-slam">Slam (hold me)</button>
+        </div>
+      </div>
+      <div class="ext">
+        <h2>Port changes</h2>
+        <pre class="log" id="log" aria-live="polite"></pre>
+      </div>
+      <p class="note">MOD may list the groups in a different order. Audio jacks are left off this preview.</p>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>var isSDK = true, desktop = null, VERSION = 'preview';</script>
+<script>
+/*MODGUI_JS*/
+</script>
+<script>
+(function () {
+  var PORTS = /*PORTS_JSON*/null;
+  var FACE_SCRIPT = /*FACE_SCRIPT*/null;
+  var GROUP_ORDER = /*GROUP_ORDER*/null;
+  var UNITS = { s: ' s', ms: ' ms', hz: ' Hz', pc: ' %', db: ' dB' };
+  var bySym = {}, state = {}, faceWidgets = {}, rows = {};
+  var logEl = document.getElementById('log'), lines = [];
+  var root = $('#facebox .mod-pedal');
+  var method = null;
+
+  PORTS.forEach(function (p) { bySym[p.symbol] = p; state[p.symbol] = p.ranges['default']; });
+  var enabledSym = PORTS.filter(function (p) { return p.bypass; })[0];
+  enabledSym = enabledSym ? enabledSym.symbol : 'lv2_enabled';
+
+  function log(src, name, v) {
+    lines.unshift('<b>' + src + '</b>  ' + name + ' → ' + v);
+    lines = lines.slice(0, 8);
+    logEl.innerHTML = lines.join('\n');
+  }
+  function fmt(p, v) {
+    if (p.scalePoints.length) {
+      var sp = p.scalePoints.filter(function (s) { return Math.abs(s.value - v) < 0.5; })[0];
+      if (sp) return sp.label;
+    }
+    if (p.properties.indexOf('toggled') >= 0) return v > 0.5 ? 'on' : 'off';
+    if (p.properties.indexOf('integer') >= 0) return String(Math.round(v));
+    var d = Math.abs(v) >= 10 ? 1 : 2;
+    return v.toFixed(d) + (UNITS[p.unit] || '');
+  }
+  function fire(ev) {
+    if (!method) return;
+    ev.icon = root; ev.data = {}; ev.api_version = 3;
+    try { method(ev, funcs); } catch (e) { log('<span class="err">script error</span>', ev.type, e.message); method = null; }
+  }
+  var funcs = { set_port_value: function (sym, v) { setValue(sym, v, 'face script', null); } };
+
+  // ---- settings panel ----
+  var LOG = function (p) { return p.properties.indexOf('logarithmic') >= 0 && p.ranges.minimum > 0; };
+  function toSlider(p, v) { return LOG(p) ? Math.log(v / p.ranges.minimum) / Math.log(p.ranges.maximum / p.ranges.minimum) : (v - p.ranges.minimum) / (p.ranges.maximum - p.ranges.minimum); }
+  function fromSlider(p, t) { return LOG(p) ? p.ranges.minimum * Math.pow(p.ranges.maximum / p.ranges.minimum, t) : p.ranges.minimum + t * (p.ranges.maximum - p.ranges.minimum); }
+
+  function buildPanel() {
+    var host = document.getElementById('groups');
+    var order = GROUP_ORDER.slice();
+    var listed = PORTS.filter(function (p) { return !p.bypass; });  // MOD keeps the bypass port out of settings
+    listed.forEach(function (p) { var g = p.group || 'Other'; if (order.indexOf(g) < 0) order.push(g); });
+    order.forEach(function (g) {
+      var ps = listed.filter(function (p) { return (p.group || 'Other') === g; });
+      if (!ps.length) return;
+      var sec = document.createElement('section'); sec.className = 'group';
+      var h = document.createElement('h3'); h.innerHTML = g + ' <small>' + ps.length + (ps.length > 1 ? ' controls' : ' control') + '</small>';
+      sec.appendChild(h);
+      ps.forEach(function (p) {
+        var r = document.createElement('div'); r.className = 'row';
+        var id = 'set-' + p.symbol;
+        var lab = document.createElement('label'); lab.textContent = p.name; lab.htmlFor = id;
+        r.appendChild(lab);
+        var ctl, val = null;
+        if (p.scalePoints.length && p.properties.indexOf('enumeration') >= 0) {
+          ctl = document.createElement('select'); ctl.id = id;
+          p.scalePoints.forEach(function (s) { var o = document.createElement('option'); o.value = s.value; o.textContent = s.label; ctl.appendChild(o); });
+          ctl.addEventListener('change', function () { setValue(p.symbol, parseFloat(ctl.value), 'settings', null); });
+        } else if (p.properties.indexOf('toggled') >= 0) {
+          ctl = document.createElement('button'); ctl.type = 'button'; ctl.id = id; ctl.className = 'tog';
+          ctl.innerHTML = '<span class="dot"></span><span class="t">off</span>';
+          ctl.addEventListener('click', function () { setValue(p.symbol, state[p.symbol] > 0.5 ? 0 : 1, 'settings', null); });
+        } else {
+          ctl = document.createElement('input'); ctl.type = 'range'; ctl.id = id; ctl.min = 0; ctl.max = 1000; ctl.step = 1;
+          ctl.addEventListener('input', function () { setValue(p.symbol, fromSlider(p, ctl.value / 1000), 'settings', null); });
+          val = document.createElement('span'); val.className = 'val';
+        }
+        r.appendChild(ctl); if (val) r.appendChild(val);
+        sec.appendChild(r);
+        rows[p.symbol] = { row: r, ctl: ctl, val: val, port: p };
+      });
+      host.appendChild(sec);
+    });
+  }
+  function syncPanel(sym, flash) {
+    var r = rows[sym]; if (!r) return;
+    var p = r.port, v = state[sym];
+    if (r.ctl.tagName === 'SELECT') r.ctl.value = String(p.scalePoints.reduce(function (a, s) { return Math.abs(s.value - v) < Math.abs(a.value - v) ? s : a; }).value);
+    else if (r.ctl.classList.contains('tog')) { r.ctl.setAttribute('aria-pressed', v > 0.5 ? 'true' : 'false'); r.ctl.querySelector('.t').textContent = v > 0.5 ? 'on' : 'off'; }
+    else if (document.activeElement !== r.ctl) r.ctl.value = Math.round(toSlider(p, v) * 1000);
+    if (r.val) r.val.textContent = fmt(p, v);
+    if (flash) { r.row.classList.remove('flash'); void r.row.offsetWidth; r.row.classList.add('flash'); }
+  }
+
+  // ---- one place where every value change lands ----
+  // src: 'face' (a widget on the face), 'settings', 'MIDI', 'face script'; except: the face widget that made the change
+  function setValue(sym, v, src, except) {
+    var p = bySym[sym]; if (!p) return;
+    if (p.properties.indexOf('integer') >= 0 || p.properties.indexOf('toggled') >= 0) v = Math.round(v);
+    state[sym] = v;
+    if (sym === enabledSym) {
+      // the face shows bypass through mod-ui's bypass widget: value 1 = bypassed
+      if (except === null) bypassEl.bypassWidget('setValue', v > 0.5 ? 0 : 1, true);
+      fire({ type: 'change', symbol: ':bypass', value: v > 0.5 ? 0 : 1 });
+    } else {
+      (faceWidgets[sym] || []).forEach(function (w) { if (!except || w[0] !== except[0]) w.controlWidget('setValue', v, true); });
+      fire({ type: 'change', symbol: sym, value: v });
+    }
+    syncPanel(sym, src !== 'settings');
+    log(src, p.bypass ? 'Effect' : p.name, fmt(p, v));
+  }
+
+  // ---- bind the face exactly as mod-ui does ----
+  root.find('[mod-role=input-control-port]').each(function () {
+    var el = $(this), sym = el.attr('mod-port-symbol'), p = bySym[sym];
+    if (!p) { el.text('No such symbol: ' + sym); return; }
+    (faceWidgets[sym] = faceWidgets[sym] || []).push(el);
+    el.controlWidget({ port: p, dummy: false, change: function (e, v) { setValue(sym, v, 'face', el); } });
+    el.controlWidget('setValue', p.ranges['default'], true);
+  });
+  var bypassEl = root.find('[mod-role=bypass]');
+  bypassEl.bypassWidget({
+    port: { symbol: ':bypass', ranges: { minimum: 0, maximum: 1, 'default': 0 }, properties: ['toggled'], scalePoints: [] },
+    dummy: false,
+    change: function (e, v) { setValue(enabledSym, v ? 0 : 1, 'face', bypassEl); },
+    changeLights: function (v) {
+      root.find('[mod-role=bypass-light]').each(function () {
+        if (v) $(this).addClass('off').removeClass('on'); else $(this).addClass('on').removeClass('off');
+      });
+    }
+  });
+  bypassEl.bypassWidget('setValue', 0, true);
+
+  if (FACE_SCRIPT) { try { eval('method = ' + FACE_SCRIPT); } catch (e) { log('<span class="err">script error</span>', 'parse', e.message); } }
+  fire({ type: 'start', ports: PORTS.map(function (p) { return { symbol: p.symbol, value: state[p.symbol] }; }), parameters: [] });
+
+  buildPanel();
+  PORTS.forEach(function (p) { syncPanel(p.symbol, false); });
+
+  // ---- outside changes ----
+  function toggle(sym) { setValue(sym, state[sym] > 0.5 ? 0 : 1, 'MIDI', null); }
+  document.getElementById('x-hold').addEventListener('click', function () { toggle('hold'); });
+  document.getElementById('x-fx').addEventListener('click', function () { toggle(enabledSym); });
+  document.getElementById('x-tm').addEventListener('click', function () { toggle('time_mod'); });
+  var slamBtn = document.getElementById('x-slam');
+  function slamOn(e) { e.preventDefault(); if (state.slam < 0.5) setValue('slam', 1, 'MIDI', null); }
+  function slamOff() { if (state.slam > 0.5) setValue('slam', 0, 'MIDI', null); }
+  slamBtn.addEventListener('pointerdown', slamOn);
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (t) { slamBtn.addEventListener(t, slamOff); });
+  slamBtn.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') slamOn(e); });
+  slamBtn.addEventListener('keyup', function (e) { if (e.key === ' ' || e.key === 'Enter') slamOff(); });
+
+  // ---- zoom ----
+  var face = root[0], box = document.getElementById('facebox'), stage = document.getElementById('stage'), zoom = 'fit';
+  function layout() {
+    var avail = stage.clientWidth - 44;
+    var s = zoom === 'fit' ? Math.min(1, avail / 650) : parseFloat(zoom);
+    face.style.transform = 'scale(' + s + ')';
+    box.style.width = (650 * s) + 'px'; box.style.height = (400 * s) + 'px';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.zoom button'), function (b) {
+    b.addEventListener('click', function () {
+      zoom = b.getAttribute('data-z');
+      Array.prototype.forEach.call(document.querySelectorAll('.zoom button'), function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      layout();
+    });
+  });
+  window.addEventListener('resize', layout);
+  layout();
+  window.__ready = true;
+})();
+</script>

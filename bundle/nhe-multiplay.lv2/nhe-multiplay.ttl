@@ -2,6 +2,7 @@
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
 @prefix mod:   <http://moddevices.com/ns/mod#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#> .
 @prefix pprops: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -17,7 +18,7 @@
     ] ;
     rdfs:comment "Variable-clock 8-bit delay, flanger and looper modelled on a 1988 multi-function digital delay. Delay Time changes the clock, so sweeps bend pitch and a held loop varispeeds. Slam switches the feedback to the Slam Regen knob for instant self-oscillation; Time Mod doubles every range." ;
     lv2:minorVersion 2 ;
-    lv2:microVersion 1 ;
+    lv2:microVersion 2 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     lv2:requiredFeature <http://lv2plug.in/ns/ext/options#options> ,
                         <http://lv2plug.in/ns/ext/urid#map> ;
@@ -44,7 +45,8 @@
         lv2:name "Delay Time" ;
         lv2:default 6 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 4 ;
@@ -52,7 +54,8 @@
         lv2:name "Width" ;
         lv2:default 0 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_modulation>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 5 ;
@@ -60,7 +63,8 @@
         lv2:name "Speed" ;
         lv2:default 3 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_modulation>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 6 ;
@@ -68,7 +72,8 @@
         lv2:name "Regen" ;
         lv2:default 4 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 7 ;
@@ -76,7 +81,8 @@
         lv2:name "Mix" ;
         lv2:default 5 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 8 ;
@@ -88,7 +94,8 @@
         lv2:portProperty lv2:integer , lv2:enumeration ;
         lv2:scalePoint [ rdfs:label "Flange" ; rdf:value 0 ] ,
                        [ rdfs:label "Chorus" ; rdf:value 1 ] ,
-                       [ rdfs:label "Echo" ; rdf:value 2 ]
+                       [ rdfs:label "Echo" ; rdf:value 2 ] ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 9 ;
@@ -96,7 +103,8 @@
         lv2:name "Slam Regen" ;
         lv2:default 7 ;
         lv2:minimum 0 ;
-        lv2:maximum 10
+        lv2:maximum 10 ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_expression>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 10 ;
@@ -105,7 +113,8 @@
         lv2:default 0 ;
         lv2:minimum 0 ;
         lv2:maximum 1 ;
-        lv2:portProperty lv2:integer , lv2:toggled
+        lv2:portProperty lv2:integer , lv2:toggled ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 11 ;
@@ -114,7 +123,8 @@
         lv2:default 0 ;
         lv2:minimum 0 ;
         lv2:maximum 1 ;
-        lv2:portProperty lv2:integer , lv2:toggled
+        lv2:portProperty lv2:integer , lv2:toggled ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 12 ;
@@ -123,7 +133,8 @@
         lv2:default 0 ;
         lv2:minimum 0 ;
         lv2:maximum 1 ;
-        lv2:portProperty lv2:integer , lv2:toggled , mod:preferMomentaryOnByDefault
+        lv2:portProperty lv2:integer , lv2:toggled , mod:preferMomentaryOnByDefault ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_expression>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 13 ;
@@ -133,7 +144,8 @@
         lv2:minimum 0.3 ;
         lv2:maximum 3 ;
         lv2:portProperty pprops:logarithmic ;
-        units:unit units:s
+        units:unit units:s ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_expression>
     ] , [
         a lv2:InputPort , lv2:ControlPort ;
         lv2:index 14 ;
@@ -144,4 +156,37 @@
         lv2:maximum 1 ;
         lv2:portProperty lv2:integer , lv2:toggled ;
         lv2:designation lv2:enabled
+    ] , [
+        a lv2:InputPort , lv2:ControlPort ;
+        lv2:index 15 ;
+        lv2:symbol "out2_mode" ;
+        lv2:name "Output 2" ;
+        lv2:default 0 ;
+        lv2:minimum 0 ;
+        lv2:maximum 2 ;
+        lv2:portProperty lv2:integer , lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "Inverted (original)" ; rdf:value 0 ] ,
+                       [ rdfs:label "Normal (mono-safe)" ; rdf:value 1 ] ,
+                       [ rdfs:label "Offset (wide, mono-safe)" ; rdf:value 2 ] ;
+        pg:group <https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
     ] .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_delay>
+    a pg:InputGroup ;
+    lv2:name "Delay" ;
+    lv2:symbol "delay" .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_modulation>
+    a pg:InputGroup ;
+    lv2:name "Modulation" ;
+    lv2:symbol "modulation" .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_mix>
+    a pg:InputGroup ;
+    lv2:name "Mix" ;
+    lv2:symbol "mix" .
+
+<https://github.com/Kiwooky/NHE-MultiPlay2020#portGroup_expression>
+    a pg:InputGroup ;
+    lv2:name "Expression" ;
+    lv2:symbol "expression" .

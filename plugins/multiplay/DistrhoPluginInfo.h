@@ -10,6 +10,13 @@
 #define DISTRHO_PLUGIN_NUM_INPUTS   1
 #define DISTRHO_PLUGIN_NUM_OUTPUTS  2
 
+enum PortGroups {
+    kGroupDelay = 0,
+    kGroupModulation,
+    kGroupMix,
+    kGroupExpression
+};
+
 enum Parameters {
     kDelayTime = 0,
     kWidth,
@@ -23,6 +30,7 @@ enum Parameters {
     kSlam,
     kRampTime,
     kBypass,
+    kOut2Mode,      // appended after the bypass port so saved pedalboards keep their indices
     kParameterCount
 };
 

@@ -6,9 +6,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SO = os.environ.get('MP_SO', os.path.join(HERE, '..', 'bin', 'nhe-multiplay.lv2', 'nhe-multiplay_dsp.so'))
 HOST = os.environ.get('MP_HOST', os.path.join(HERE, 'lv2host')).split()
 ORDER = ['delay_time', 'width', 'speed', 'regen', 'mix', 'range', 'slam_level',
-         'time_mod', 'hold', 'slam', 'ramp_time', 'lv2_enabled']
+         'time_mod', 'hold', 'slam', 'ramp_time', 'lv2_enabled', 'out2_mode']
 DEF = dict(delay_time=6, width=0, speed=3, regen=4, mix=5, range=2, slam_level=7,
-           time_mod=0, hold=0, slam=0, ramp_time=0.45, lv2_enabled=1)
+           time_mod=0, hold=0, slam=0, ramp_time=0.45, lv2_enabled=1, out2_mode=0)
 PORT = {s: 3 + i for i, s in enumerate(ORDER)}
 
 def run(x, sr=48000, events=(), **kw):
@@ -145,6 +145,31 @@ def main():
     back = np.sqrt(np.mean(o2[int(2.8 * sr):int(3.8 * sr)] ** 2))
     check('held loop silent while bypassed', off < 1e-4, 'rms %.2e' % off)
     check('held loop returns on re-engage', back > 0.1, 'rms %.3f' % back)
+
+    # 5b. Output 2 modes: what survives when both outputs are summed to mono ---
+    n = int(3 * sr)
+    x = burst(sr, n, amp=0.25, dur=0.02, f=700)
+    seg = slice(int(0.15 * sr), int(0.6 * sr))          # first echo (~250 ms)
+    res = {}
+    for mode in (0, 1, 2):
+        o1, o2 = run(x, sr, delay_time=10, regen=0, range=1, mix=5, out2_mode=mode)
+        mono = (o1 + o2)[seg]
+        res[mode] = (np.sqrt(np.mean(o1[seg] ** 2)), np.sqrt(np.mean(mono ** 2)), np.max(np.abs(o1[seg] - o2[seg])))
+    w1 = res[1][0]
+    check('out2 Inverted: echoes cancel in mono (as original)', res[0][1] < 0.01 * w1, 'mono echo %.1f dB re out 1' % (20 * np.log10(res[0][1] / w1 + 1e-12)))
+    check('out2 Normal: mono = 2x out 1, outputs identical', abs(20 * np.log10(res[1][1] / (2 * w1))) < 0.1 and res[1][2] < 1e-6,
+          'mono %.2f dB re 2x out 1' % (20 * np.log10(res[1][1] / (2 * w1))))
+    check('out2 Offset: echoes survive in mono', res[2][1] > 1.2 * w1, 'mono %.1f dB re out 1' % (20 * np.log10(res[2][1] / w1)))
+    o1, o2 = run(x, sr, delay_time=10, regen=0, range=1, mix=5, out2_mode=2)
+    x1 = np.argmax(np.abs(o1[seg])); x2 = np.argmax(np.abs(o2[seg]))
+    check('out2 Offset: echoes trail by ~12 ms', abs((x2 - x1) / sr - 0.012) < 0.002, '%.1f ms' % ((x2 - x1) / sr * 1000))
+    # switching modes mid-note is click-free
+    t2 = np.arange(n) / sr
+    xs = 0.25 * np.sin(2 * np.pi * 220 * t2)
+    o1, o2 = run(xs, sr, regen=5, range=1, out2_mode=0,
+                 events=[(int(1.0 * sr), 'out2_mode', 1), (int(1.7 * sr), 'out2_mode', 2), (int(2.4 * sr), 'out2_mode', 0)])
+    d2 = np.max(np.abs(np.diff(o2[int(0.5 * sr):]))); dx = np.max(np.abs(np.diff(xs)))
+    check('out2 mode switching no clicks', d2 < 4 * dx, 'max step %.4f vs %.4f' % (d2, dx))
 
     # 6. range switching and time mod mid-run --------------------------------
     o1, o2 = run(x, sr, regen=6, events=[(int(0.5 * sr), 'range', 0), (int(1.0 * sr), 'range', 1),

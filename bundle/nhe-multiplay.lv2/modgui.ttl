@@ -22,5 +22,6 @@
         [ lv2:index 7 ; lv2:symbol "time_mod" ; lv2:name "Time Mod" ; ] ,
         [ lv2:index 8 ; lv2:symbol "hold" ; lv2:name "Repeat Hold" ; ] ,
         [ lv2:index 9 ; lv2:symbol "slam" ; lv2:name "Slam" ; ] ,
-        [ lv2:index 10 ; lv2:symbol "ramp_time" ; lv2:name "Ramp Swell Time" ; ] ;
+        [ lv2:index 10 ; lv2:symbol "ramp_time" ; lv2:name "Ramp Swell Time" ; ] ,
+        [ lv2:index 11 ; lv2:symbol "out2_mode" ; lv2:name "Output 2" ; ] ;
     ] .

@@ -59,7 +59,7 @@ The delay time comes from a **voltage-controlled clock**. The buffer length is f
 
 - **OUTPUT 1 (U5B):** dry + wet summed 1:1 (R18 = R19 = R26 = 10k). **The MIX knob does not affect it.**
 - **OUTPUT 2 (U1A):** MIX (P8, 500k C) with J113 Q8 on the wiper. It crossfades dry and wet through R47/R50 20k; gain is about 0.8.
-- **Stereo comes from polarity.** Output 1 takes the wet after the inverting U11A, Output 2 before it, so the wet is **opposite in polarity on the two outputs**. Summed to mono, the wet partly cancels; in stereo it sounds wide.
+- **Stereo comes from polarity.** Output 1 takes the wet after the inverting U11A, Output 2 before it, so the wet is **opposite in polarity on the two outputs**. Summed to mono, the wet partly cancels; in stereo it sounds wide. The plugin keeps this as the default and offers Normal and Offset alternatives in its Output 2 setting.
 - **Dry path:** the pre-emphasised input buffer, inverted by U1B, then de-emphasised at the outputs. The dry is never digitised.
 
 ## 8. Switches (confident)

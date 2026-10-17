@@ -1,4 +1,4 @@
-/* MultiPlay 20/20 - New Horizon Electronics (650 x 400) */
+/* MultiPlay 20/20 - New Horizon Electronics (650 x 400, all artwork at 2x) */
 .multiplay{{{cns}}} {
     position: absolute;
     width: 650px;
@@ -8,92 +8,116 @@
     background-repeat: no-repeat;
     border-radius: 4px;
 }
-/* knobs: Taj Mahal strip, 62x62 frames, 65 frames */
-.multiplay{{{cns}}} .mp-knob {
+.multiplay{{{cns}}} .mp-knob,
+.multiplay{{{cns}}} .mp-range,
+.multiplay{{{cns}}} .mp-tm,
+.multiplay{{{cns}}} .mp-fs,
+.multiplay{{{cns}}} .mp-led {
     position: absolute;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    z-index: 21;
+}
+
+/* knobs: 65 frames, 124 px square at 2x, drawn at 62 px */
+.multiplay{{{cns}}} .mp-knob {
     width: 62px;
     height: 62px;
     background-image: url(/resources/knob.png{{{ns}}});
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background-size: auto 62px;
     cursor: pointer;
-    z-index: 21;
 }
-.multiplay{{{cns}}} .mp-speed      { left: 119px; top: 53px; }
-.multiplay{{{cns}}} .mp-width      { left: 205px; top: 53px; }
-.multiplay{{{cns}}} .mp-delay_time { left: 291px; top: 53px; }
-.multiplay{{{cns}}} .mp-regen      { left: 457px; top: 53px; }
-.multiplay{{{cns}}} .mp-mix        { left: 543px; top: 53px; }
-.multiplay{{{cns}}} .mp-slam_level { left: 457px; top: 162px; }
+.multiplay{{{cns}}} .mp-speed      { left: 118.5px;  top: 53.5px; }
+.multiplay{{{cns}}} .mp-width      { left: 204.5px;  top: 53.5px; }
+.multiplay{{{cns}}} .mp-delay_time { left: 290.5px;  top: 53.5px; }
+.multiplay{{{cns}}} .mp-regen      { left: 456.5px;  top: 53.5px; }
+.multiplay{{{cns}}} .mp-mix        { left: 542.75px; top: 53.5px; }
+.multiplay{{{cns}}} .mp-slam_level { left: 456.5px;  top: 162.75px; }
 
-/* range switch: 100x138 frames [flange | chorus | echo], legend swaps with Time Mod */
+/* range lever: 3 frames [flange | chorus | echo]; the legend swaps with Time Mod */
 .multiplay{{{cns}}} .mp-range {
-    position: absolute;
-    left: 14px;
-    top: 14px;
-    width: 100px;
-    height: 138px;
+    left: 20px;
+    top: 11px;
+    width: 94px;
+    height: 144px;
     background-image: url(/resources/range-original.png{{{ns}}});
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    cursor: pointer;
-    z-index: 21;
+    background-size: auto 144px;
 }
 .multiplay{{{cns}}} .mp-range.mp-doubled {
     background-image: url(/resources/range-doubled.png{{{ns}}});
 }
-
-/* click zones over the lever: each legend line selects its range (script-multiplay.js) */
+/* click zones over the legend lines: each selects its own range (script) */
 .multiplay{{{cns}}} .mp-range-hit {
     position: absolute;
-    left: 14px;
-    width: 100px;
+    left: 20px;
+    width: 94px;
+    height: 48px;
     cursor: pointer;
     z-index: 22;
 }
-.multiplay{{{cns}}} .mp-hit-echo   { top: 14px;  height: 45px; }
-.multiplay{{{cns}}} .mp-hit-chorus { top: 59px;  height: 48px; }
-.multiplay{{{cns}}} .mp-hit-flange { top: 107px; height: 45px; }
+.multiplay{{{cns}}} .mp-hit-echo   { top: 11px; }
+.multiplay{{{cns}}} .mp-hit-chorus { top: 59px; }
+.multiplay{{{cns}}} .mp-hit-flange { top: 107px; }
 
-/* Time Mod: 100x62 frames [LED off | LED on] */
-.multiplay{{{cns}}} .mp-timemod {
-    position: absolute;
-    left: 259px;
-    top: 162px;
-    width: 100px;
-    height: 62px;
+/* Time Mod button: [up | down]. It latches: down while held and for as long as
+   Time Mod is on (the switch widget adds class "on"); its LED shows the same. */
+.multiplay{{{cns}}} .mp-tm {
+    left: 302px;
+    top: 173px;
+    width: 44.5px;
+    height: 49.5px;
     background-image: url(/resources/timemod.png{{{ns}}});
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background-size: 89px 49.5px;
     cursor: pointer;
-    z-index: 21;
 }
+.multiplay{{{cns}}} .mp-tm:active,
+.multiplay{{{cns}}} .mp-tm.on { background-position: -44.5px 0; }
 
-/* footswitches: 168x139 frames [LED off | LED on] */
+/* Footswitches: footswitch.png is [up | down]. The pressed graphic sits
+   underneath and the up graphic is laid on top; pressing hides the top one.
+   Down while pressed (mouse), or briefly when a footswitch or MIDI changes
+   it (class mp-press); the LED next to each one shows the state. */
 .multiplay{{{cns}}} .mp-fs {
-    position: absolute;
-    top: 248px;
-    width: 168px;
-    height: 139px;
+    top: 289px;
+    width: 153px;
+    height: 91px;
     background-image: url(/resources/footswitch.png{{{ns}}});
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background-size: 306px 91px;
+    background-position: -153px 0;
     cursor: pointer;
-    z-index: 21;
 }
-.multiplay{{{cns}}} .mp-hold   { left: 15px; }
-/* Repeat Hold, Slam and Time Mod use the "switch" widget: a click always
-   toggles, even if the mouse moves a little (the film widget treats that as
-   a drag and ignores the click). Class "on" = value 1 -> LED lit. */
-.multiplay{{{cns}}} .mp-hold.off, .multiplay{{{cns}}} .mp-slam.off { background-position: 0 0; }
-.multiplay{{{cns}}} .mp-hold.on,  .multiplay{{{cns}}} .mp-slam.on  { background-position: -168px 0; }
-.multiplay{{{cns}}} .mp-timemod.off { background-position: 0 0; }
-.multiplay{{{cns}}} .mp-timemod.on  { background-position: -100px 0; }
-.multiplay{{{cns}}} .mp-effect { left: 192px; }
-.multiplay{{{cns}}} .mp-slam   { left: 472px; }
-/* bypass widget: class "on" = bypassed -> LED off; "off" = active -> LED lit */
-.multiplay{{{cns}}} .mp-effect.on  { background-position: 0 0; }
-.multiplay{{{cns}}} .mp-effect.off { background-position: -168px 0; }
+.multiplay{{{cns}}} .mp-fs::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/resources/footswitch.png{{{ns}}});
+    background-size: 306px 91px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+.multiplay{{{cns}}} .mp-fs:active::after,
+.multiplay{{{cns}}} .mp-fs.mp-press::after { visibility: hidden; }
+.multiplay{{{cns}}} .mp-fs-hold   { left: 20px; }
+.multiplay{{{cns}}} .mp-fs-effect { left: 197px; }
+.multiplay{{{cns}}} .mp-fs-slam   { left: 477px; }
+
+/* LEDs: [off | on]; they follow the controls but don't take clicks */
+.multiplay{{{cns}}} .mp-led {
+    width: 32px;
+    height: 32px;
+    background-image: url(/resources/led.png{{{ns}}});
+    background-size: 64px 32px;
+    pointer-events: none;
+}
+.multiplay{{{cns}}} .mp-led.on { background-position: -32px 0; }
+.multiplay{{{cns}}} .mp-led-tm     { left: 262.5px; top: 177.5px; }
+.multiplay{{{cns}}} .mp-led-hold   { left: 15.5px;  top: 248.5px; }
+.multiplay{{{cns}}} .mp-led-effect { left: 192px;   top: 248px; }
+.multiplay{{{cns}}} .mp-led-slam   { left: 472.5px; top: 248.5px; }
 
 .multiplay{{{cns}}} .mod-pedal-input,
 .multiplay{{{cns}}} .mod-pedal-output { top: 150px; }

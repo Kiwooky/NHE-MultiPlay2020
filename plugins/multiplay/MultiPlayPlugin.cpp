@@ -139,6 +139,9 @@ public:
         fParams[kSlam]      = 0.0f;
         fParams[kRampTime]  = 0.45f;
         fParams[kBypass]    = 0.0f;
+        fParams[kOut2Mode]  = 0.0f;
+
+        std::memset(fOffBuf, 0, sizeof(fOffBuf));
 
         std::memset(fMem, 0, sizeof(fMem));
         activate();
@@ -150,7 +153,7 @@ protected:
     const char* getMaker()       const override { return "New Horizon Electronics"; }
     const char* getHomePage()    const override { return "https://github.com/Kiwooky/NHE-MultiPlay2020"; }
     const char* getLicense()     const override { return "MIT"; }
-    uint32_t    getVersion()     const override { return d_version(1, 0, 1); }
+    uint32_t    getVersion()     const override { return d_version(1, 0, 2); }
     int64_t     getUniqueId()    const override { return d_cconst('M', 'P', '2', '0'); }
 
     void initParameter(uint32_t index, Parameter& p) override
@@ -215,6 +218,41 @@ protected:
         case kBypass:
             p.initDesignation(kParameterDesignationBypass);
             break;
+        case kOut2Mode: {
+            p.hints |= kParameterIsInteger;
+            p.name = "Output 2"; p.symbol = "out2_mode";
+            p.ranges.max = 2.0f; p.ranges.def = 0.0f;
+            static ParameterEnumerationValue values[3];
+            values[0].value = 0.0f; values[0].label = "Inverted (original)";
+            values[1].value = 1.0f; values[1].label = "Normal (mono-safe)";
+            values[2].value = 2.0f; values[2].label = "Offset (wide, mono-safe)";
+            p.enumValues.count = 3;
+            p.enumValues.restrictedMode = true;
+            p.enumValues.values = values;
+            p.enumValues.deleteLater = false;
+            break;
+        }
+        }
+
+        switch (index) {
+        case kRange: case kDelayTime: case kTimeMod: case kRegen: case kHold:
+            p.groupId = kGroupDelay; break;
+        case kSpeed: case kWidth:
+            p.groupId = kGroupModulation; break;
+        case kMix: case kOut2Mode:
+            p.groupId = kGroupMix; break;
+        case kSlam: case kSlamLevel: case kRampTime:
+            p.groupId = kGroupExpression; break;
+        }
+    }
+
+    void initPortGroup(uint32_t groupId, PortGroup& portGroup) override
+    {
+        switch (groupId) {
+        case kGroupDelay:      portGroup.name = "Delay";      portGroup.symbol = "delay";      break;
+        case kGroupModulation: portGroup.name = "Modulation"; portGroup.symbol = "modulation"; break;
+        case kGroupMix:        portGroup.name = "Mix";        portGroup.symbol = "mix";        break;
+        case kGroupExpression: portGroup.name = "Expression"; portGroup.symbol = "expression"; break;
         }
     }
 
@@ -247,6 +285,8 @@ protected:
         fCvCoef    = onePoleCoef(160.0f, fSr);  // R92 10k / C52 0.1 uF
         fFast      = onePoleCoef(1.0f / (2.0f * kPi * 0.005f), fSr);  // 5 ms
         fGlide     = onePoleCoef(1.0f / (2.0f * kPi * 0.030f), fSr);  // 30 ms
+        fOffLen    = (uint32_t)std::lrint(0.012 * fSr);
+        if (fOffLen > kOffMask) fOffLen = kOffMask;
 
         clearState();
 
@@ -273,6 +313,8 @@ protected:
         fEnvC = fEnvE = 0.01f;
         fFb = 0.0f;
         fLfoPhase = 0.25f; fLfoLp = 0.0f;
+        std::memset(fOffBuf, 0, sizeof(fOffBuf));
+        fOffPos = 0;
     }
 
     void run(const float** inputs, float** outputs, uint32_t frames) override
@@ -312,6 +354,11 @@ protected:
         const bool bypassed = fParams[kBypass] > 0.5f;
         const float wetTarget = bypassed ? 0.0f : 1.0f;
 
+        const int o2mode = (int)(fParams[kOut2Mode] + 0.5f);
+        const float o2Inv  = o2mode == 0 ? 1.0f : 0.0f;
+        const float o2Norm = o2mode == 1 ? 1.0f : 0.0f;
+        const float o2Off  = o2mode == 2 ? 1.0f : 0.0f;
+
         // range switch: mute, change the loop length, fade back in
         const int newRange = rangeIndex();
         if (newRange != fRangeIdx && fRangeState == 0) fRangeState = 1;
@@ -327,6 +374,7 @@ protected:
             fRangeState = 0;
             fRangeGain = 1.0f;
             fCv = cvTarget(width);
+            fGInv = o2Inv; fGNorm = o2Norm; fGOff = o2Off;
         }
 
         const float kLr = 0.35f;            // compander reference level
@@ -427,10 +475,21 @@ protected:
             const float wg = fWetGain * fRangeGain;
             const float w1 = fDeemph1.process(wU11) * wg;
             const float w2 = fDeemph2.process(wU11) * wg;   // out 2 also after the U11A treble filter (smoother than stock)
+
+            // Output 2 mode: Inverted (original: wide, cancels in mono), Normal
+            // (same as out 1: mono-safe, no width) or Offset (echoes trail by
+            // 12 ms: wide and mono-safe). Gains crossfade so switching never clicks.
+            fOffBuf[fOffPos] = w2;
+            const float w2d = fOffBuf[(fOffPos - fOffLen) & kOffMask];
+            fOffPos = (fOffPos + 1) & kOffMask;
+            fGInv  += fFast * (o2Inv  - fGInv);
+            fGNorm += fFast * (o2Norm - fGNorm);
+            fGOff  += fFast * (o2Off  - fGOff);
+            const float w2out = (fGNorm - fGInv) * w2 + fGOff * w2d;
             // bypassed: the dry fades up to unity whatever MIX is set to
             const float dry = 1.0f + fWetGain * (mixDry - 1.0f);
             out1[i] = dry * x + mixWet * w1;         // OUTPUT 1: MIX, smoother wet
-            out2[i] = dry * x - mixWet * w2;         // OUTPUT 2: MIX, wet inverted
+            out2[i] = dry * x + mixWet * w2out;      // OUTPUT 2: MIX, wet per Output 2 mode
         }
 
     }
@@ -479,10 +538,16 @@ private:
     uint32_t fNoise = 22222u;
     bool  fFirstRun = true;
 
+    static constexpr uint32_t kOffMask = 8191;         // 12 ms at up to 192 kHz
+    float    fOffBuf[kOffMask + 1];
+    uint32_t fOffPos = 0, fOffLen = 576;
+    float    fGInv = 1.0f, fGNorm = 0.0f, fGOff = 0.0f;
+
     DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MultiPlayPlugin)
 };
 
 constexpr uint32_t MultiPlayPlugin::kLens[3];
+constexpr uint32_t MultiPlayPlugin::kOffMask;
 
 Plugin* createPlugin() { return new MultiPlayPlugin(); }
 
